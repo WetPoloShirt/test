@@ -1,0 +1,305 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather|Tajawal|Kadwa');
+
+@colorGray: #333;
+@fullRem: 1rem;
+@halfRem: .5rem;
+@headerBorder: #999 solid 1px;
+@specialBorder: #333 solid 1px;
+
+.bgColor-topBottomBorder(@bgColor, @borderColor, @borderStyle, @borderWidth) {
+  background-color: @bgColor;
+  border-top: @borderColor @borderStyle @borderWidth;
+  border-bottom: @borderColor @borderStyle @borderWidth;
+}
+
+.fluidText(@smallSize, @largeSize, @minWindowWidth, @maxWindowWidth) {
+  font-size: calc(unit(@smallSize, px) + (@largeSize - @smallSize) * (100vw - unit(@minWindowWidth, px)) / (@maxWindowWidth - @minWindowWidth));
+}
+
+/************* General Styles **************/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font: 17px/1.5 'Tajawal', sans-serif;
+  margin: @fullRem * 4 0 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Merriweather', serif;
+}
+
+img {
+  border: @colorGray solid 1px;
+  height: auto;
+  max-width: 100%;
+}
+
+/******** Widths for anything needed to be centered on page **************/
+
+#page-header,
+nav ul,
+#pool-columns,
+#blurbs,
+footer p {
+  margin: 0 auto;
+  max-width: 1183px;
+  width: 90%;
+}
+
+/******** Page Header *************/
+
+#page-header {
+  display: flex;
+  flex-wrap: wrap;
+  div:first-child {
+    flex: 1;
+    order: 2;
+    text-align: center;
+  }
+  div:last-child {
+    flex: 1;
+    margin-right: @halfRem;
+    order: 1;
+  }
+  h1 {
+    font-size: 36px;
+    margin: 0;
+  }
+  p {
+    font: bold small-caps 20px/1.5 'Kadwa', serif;
+    margin: 0;
+  }
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+/************** Navbar ****************/
+
+nav {
+  background-color: #005583;
+  border-top: @colorGray solid 5px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  ul {
+    padding: 0;
+  }
+  li {
+    display: inline;
+  }
+  a {
+    color: #fff;
+    display: inline-block;
+    font-weight: bold;
+    padding: @halfRem;
+    text-decoration: none;
+    &:hover {
+      background-color: #fff;
+      color: @colorGray;
+    }
+  }
+}
+
+#nav-trigger {
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  padding: @halfRem;
+  text-align: center;
+}
+
+#nav-trigger,
+#nav-checkbox {
+  display: none;
+}
+  
+/************ Main Header **************/
+
+main header {
+  .bgColor-topBottomBorder(#f2f2f1, #999, solid, 1px);
+  margin-top: @fullRem;
+  padding: @fullRem;
+  text-align: center;
+  h2 {
+    font-size: 20px;
+    margin: 0;
+  }
+  p {
+    font-size: 18px;
+    margin: 0;
+  }
+  .phone {
+    font-size: 24px;
+    margin-bottom: 0;
+  }
+}
+
+/*********** Pool columns **************/
+
+#pool-columns {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 @fullRem;
+  section {
+    flex: 1;
+    margin-right: @fullRem;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+/************** Specials ************/
+
+#special {
+  .bgColor-topBottomBorder(#f2f2f1, #333, solid, 1px);
+  padding: @fullRem;
+  text-align: center;
+  h2 {
+    font-size: 5vw;
+    margin: 0;
+  }
+  p {
+    margin-top: 0;
+  }
+}
+
+/***************** Blurbs **************/
+
+#blurbs {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 @fullRem;
+  section {
+    margin-right: @fullRem;
+    text-align: center;
+    flex: 1;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  img {
+    border-radius: 50%;
+    border: #005583 solid 5px;
+  }
+}
+
+/************* Footer ****************/
+
+footer {
+  background-color: #deb887;
+  border-top: @colorGray solid 2px;
+  p {
+    padding: @fullRem;
+  }
+}
+
+/************** Fluid text starts at 320px *************/
+
+@media screen and (min-width: 320px) {
+  #page-header h1 {
+    .fluidText(36, 76, 320, 1200);
+    p {
+      .fluidText(20, 48, 320, 1200)
+    }
+  }
+  
+  main header h2 {
+    .fluidText(20, 48, 320, 1200);
+    p {
+      .fluidText(18, 36, 320, 1200);
+    }
+  }
+
+  .phone {
+    .fluidText(24, 48, 24, 1200);
+  }
+}
+
+/************ 794px and narrower ****************/
+
+@media screen and (max-width: 794px){
+  nav {
+    #nav-trigger {
+      display: block;
+    }
+    #nav-checkbox:checked + ul {
+      display: block;
+    }
+    ul {
+      display: none;
+      width: 100%;
+    }
+    li {
+      display: block;
+    }
+    a {
+      border-bottom: #000 solid 2px;
+      display: block;
+      min-height: 45px;
+    }
+  }
+  
+  #pool-columns {
+    display: block;
+    img {
+      float: left;
+      margin: 0 @fullRem * 2 @fullRem 0;
+    }
+    p {
+      clear: left;
+      margin-bottom: @fullRem * 2;
+    }
+  }
+}
+
+/************** 569px and narrower ****************/
+
+@media screen and (max-width: 569px) {
+  #page-header {
+    flex-direction: column-reverse;
+  }
+  
+  #pool-columns img {
+    float: none;
+    margin: 0;
+  }
+  
+  #blurbs {
+    display: block;
+    p {
+      padding-bottom: @fullRem * 2;
+    }
+  }
+}
+
+/************** Largest font thresholds *************/
+
+@media screen and (min-width: 1200px) {
+  #page-header h1 {
+    font-size: 76px;
+    p {
+      font-size: 48px;
+    }
+  }
+  
+  main header h2 {
+    font-size: 48px;
+    p {
+      font-size: 36px;
+    }
+  }
+
+  .phone {
+    font-size: 48px;
+  }
+}
